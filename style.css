@@ -1,0 +1,1025 @@
+/* --- 1. Réinitialisation et Variables Globales --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    height: 100%;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background-color 0.5s ease, color 0.5s ease; /* Transition pour le mode sombre/clair */
+}
+
+/* Définition des variables pour le mode sombre */
+body.dark-mode {
+    --bg-primary: #1a1a1a; /* Arrière-plan principal (foncé) */
+    --bg-secondary: #222222; /* Arrière-plan secondaire (légèrement moins foncé) */
+    --bg-card: rgba(26, 26, 26, 0.9); /* Fond des cartes/conteneurs */
+    --text-color: #f0f0f0; /* Couleur de texte principale */
+    --text-light: #e0e0e0; /* Texte légèrement plus clair */
+    --text-muted: #ccc; /* Texte atténué (description, labels) */
+    --highlight-color: #00ff00; /* Couleur d'accentuation (vert vif) */
+    --shadow-color: rgba(0, 0, 0, 0.3); /* Couleur des ombres */
+    --border-color: #555; /* Couleur des bordures */
+    --input-bg: #333; /* Fond des champs de saisie */
+    --input-focus-shadow: rgba(0, 255, 0, 0.3); /* Ombre au focus des inputs */
+    --navbar-bg: rgba(26, 26, 26, 0.95); /* Fond de la barre de navigation */
+    --skill-bar-bg: #333; /* Fond des barres de compétence vides */
+    --skill-bar-fill: #00ff00; /* Remplissage des barres de compétence */
+    --skill-percentage-color: #1a1a1a; /* Couleur du texte du pourcentage de compétence */
+}
+
+/* Définition des variables pour le mode clair */
+body.light-mode {
+    --bg-primary: #f0f0f0;
+    --bg-secondary: #e0e0e0;
+    --bg-card: rgba(255, 255, 255, 0.9);
+    --text-color: #333333;
+    --text-light: #444444;
+    --text-muted: #666;
+    --highlight-color: #008000; /* Vert un peu plus sombre pour le mode clair */
+    --shadow-color: rgba(0, 0, 0, 0.15);
+    --border-color: #ccc;
+    --input-bg: #ffffff;
+    --input-focus-shadow: rgba(0, 128, 0, 0.2);
+    --navbar-bg: rgba(255, 255, 255, 0.95);
+    --skill-bar-bg: #cccccc; /* Plus clair pour les barres vides */
+    --skill-bar-fill: #008000;
+    --skill-percentage-color: #ffffff; /* Texte blanc sur barre verte */
+}
+
+/* Application des variables sur le body et les éléments génériques */
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-color);
+}
+
+/* Styles pour toutes les sections */
+section {
+    padding: 100px 5%;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* La couleur de fond spécifique de chaque section est définie plus bas */
+}
+
+.page-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3em;
+    margin-bottom: 50px;
+    color: var(--text-color); /* Utilise la couleur de texte principale */
+}
+
+/* Styles initiaux pour les animations des éléments qui apparaissent */
+.anim-element {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Styles génériques des boutons */
+.btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: var(--highlight-color);
+    color: var(--bg-primary); /* Le texte du bouton sera sombre sur fond vert */
+    text-decoration: none;
+    border-radius: 8px;
+    margin-top: 40px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    font-weight: 700;
+    font-size: 1.1em;
+    letter-spacing: 0.5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: color-mix(in srgb, var(--highlight-color) 80%, black); /* Rend le vert légèrement plus sombre */
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px var(--shadow-color);
+}
+
+
+/* --- 2. Barre de Navigation (Navbar) --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 5%;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--navbar-bg); /* Utilise la variable du thème */
+    box-shadow: 0 4px 10px var(--shadow-color); /* Utilise la variable du thème */
+}
+
+.navbar .logo img {
+    height: 45px;
+    transition: transform 0.3s ease;
+}
+
+.navbar .logo img:hover {
+    transform: scale(1.05);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center; /* Pour aligner avec le switch de thème */
+}
+
+.nav-links li {
+    margin-left: 35px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05em;
+    position: relative;
+    transition: color 0.3s ease, transform 0.2s ease;
+    color: var(--text-light); /* Utilise la variable du thème */
+}
+
+/* Effet de soulignement moderne au survol */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--highlight-color); /* Utilise la variable du thème */
+    transition: width 0.3s ease-out;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: var(--highlight-color); /* Utilise la variable du thème */
+    transform: translateY(-2px);
+}
+
+.nav-links a.active {
+    color: var(--highlight-color); /* Utilise la variable du thème */
+    border-bottom: 2px solid var(--highlight-color);
+    padding-bottom: 3px;
+}
+
+/* Burger Menu */
+.burger {
+    display: none;
+    cursor: pointer;
+}
+
+.burger div {
+    width: 28px;
+    height: 3px;
+    margin: 6px;
+    transition: all 0.3s ease;
+    background-color: var(--text-color); /* Utilise la variable du thème */
+}
+
+/* --- 3. Bouton de Thème (Dark/Light Mode) --- */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin: 0;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #333; /* Couleur de la base du switch en mode sombre */
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: #f0f0f0; /* Couleur du bouton du switch */
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #00ff00; /* Couleur de la base du switch en mode clair (actif) */
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #00ff00;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* --- 4. Section d'Accueil (Hero) --- */
+.hero-section {
+    position: relative;
+    padding-top: 100px; /* Ajuste pour la navbar fixe */
+    background-color: var(--bg-primary); /* Utilise la variable du thème */
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/sa_logo_background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(3px) brightness(50%); /* Effet visuel */
+    z-index: 1;
+    opacity: 0; /* Commence invisible pour l'animation JS */
+    transition: opacity 2s ease-out, filter 2s ease-out;
+}
+
+.hero-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    z-index: 2; /* S'assure que le contenu est au-dessus du fond flou */
+    position: relative;
+}
+
+.hero-content {
+    text-align: left;
+    max-width: 50%;
+}
+
+.hero-content h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 4.5em;
+    margin-bottom: 8px;
+    line-height: 1.1;
+    color: var(--text-color);
+}
+
+.hero-content h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 3.2em;
+    margin-bottom: 15px;
+    line-height: 1.1;
+    color: var(--text-color);
+}
+
+.hero-content .highlight {
+    color: var(--highlight-color); /* Utilise la variable du thème */
+    font-weight: 700;
+}
+
+.hero-content .subtitle {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 2em;
+    line-height: 1.4;
+    color: var(--text-light); /* Utilise la variable du thème */
+    margin-bottom: 0;
+}
+
+.hero-content .line1-subtitle {
+    margin-bottom: 8px;
+}
+
+.hero-image {
+    max-width: 40%;
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px var(--shadow-color);
+    overflow: hidden;
+    opacity: 0; /* Commence invisible pour l'animation JS */
+    transform: translateX(30px); /* Commence décalé pour l'animation JS */
+}
+
+.hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
+
+/* --- 5. Section "Ma Philosophie" --- */
+.philosophy-section {
+    background-color: var(--bg-secondary); /* Utilise la variable du thème */
+    min-height: 80vh;
+    padding: 80px 5%;
+}
+
+.philosophy-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    max-width: 1000px;
+    margin: 0 auto;
+    flex-wrap: wrap; /* Permet aux éléments de passer à la ligne sur petits écrans */
+}
+
+.philosophy-text {
+    flex: 2; /* Prend plus de place que l'image */
+    text-align: left;
+    max-width: 600px;
+}
+
+.philosophy-text p {
+    margin-bottom: 20px;
+    font-size: 1.15em;
+    line-height: 1.8;
+    color: var(--text-light); /* Utilise la variable du thème */
+}
+
+.philosophy-images-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 200px;
+    position: relative; /* Pour positionner les images les unes sur les autres */
+    height: 250px; /* Hauteur fixe pour le conteneur d'images */
+    width: 250px; /* Largeur fixe pour le conteneur d'images */
+    overflow: hidden; /* Assure que les images ne débordent pas */
+}
+
+.philosophy-images-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ou 'cover' selon l'effet souhaité */
+    opacity: 0; /* Toutes les images commencent invisibles */
+    transition: opacity 1s ease-in-out; /* Transition de fondu */
+    border-radius: 10px;
+    /* Ajoutez un léger padding pour s'assurer que l'image n'est pas coupée si son ratio est bizarre */
+    padding: 5px;
+}
+
+.philosophy-images-container img.philosophy-active-image {
+    opacity: 1; /* L'image active est visible */
+}
+
+/* --- 6. Section "Mes Compétences" --- */
+.competences-section {
+    background-color: var(--bg-primary); /* Utilise la variable du thème */
+}
+
+.skills-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 30px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.skill-category {
+    padding: 30px;
+    border-radius: 10px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+    background-color: var(--bg-card); /* Utilise la variable du thème */
+    box-shadow: 3px 3px 10px var(--shadow-color); /* Utilise la variable du thème */
+}
+
+.skill-category h3 {
+    margin-bottom: 25px;
+    font-size: 1.5em;
+    text-align: left;
+    color: var(--text-light); /* Utilise la variable du thème */
+}
+
+.skill-bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.skill-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-align: left;
+}
+
+.skill-name {
+    flex: 0 0 100px;
+    font-weight: 600;
+    color: var(--text-color); /* Utilise la variable du thème */
+}
+
+.skill-bar-bg {
+    flex-grow: 1;
+    border-radius: 5px;
+    height: 12px;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--skill-bar-bg); /* Utilise la variable du thème */
+}
+
+.skill-bar {
+    height: 100%;
+    border-radius: 5px;
+    width: 0; /* Commence à 0 pour l'animation JS */
+    transition: width 1.5s ease-out;
+    background-color: var(--skill-bar-fill); /* Utilise la variable du thème */
+}
+
+.skill-percentage {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8em;
+    font-weight: 700;
+    z-index: 1;
+    color: var(--skill-percentage-color); /* Utilise la variable du thème */
+}
+
+/* --- 7. Section "Mes Réalisations" --- */
+.realisations-section {
+    background-color: var(--bg-secondary); /* Utilise la variable du thème */
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.project {
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    background-color: var(--bg-card); /* Utilise la variable du thème */
+    box-shadow: 3px 3px 10px var(--shadow-color); /* Utilise la variable du thème */
+}
+
+.project img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.project h3 {
+    margin-bottom: 10px;
+    color: var(--text-light); /* Utilise la variable du thème */
+}
+
+.project p {
+    margin-bottom: 15px;
+    color: var(--text-muted); /* Utilise la variable du thème */
+}
+
+.project-link {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    background-color: var(--highlight-color); /* Utilise la variable du thème */
+    color: var(--bg-primary); /* Texte sombre sur bouton clair/vert */
+}
+
+.project-link:hover {
+    background-color: color-mix(in srgb, var(--highlight-color) 80%, black);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px var(--shadow-color);
+}
+
+/* --- 8. Section "Contact" --- */
+.contact-section {
+    background-color: var(--bg-primary); /* Utilise la variable du thème */
+}
+
+.contact-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: var(--bg-card); /* Utilise la variable du thème */
+    box-shadow: 0 5px 15px var(--shadow-color); /* Utilise la variable du thème */
+}
+
+.contact-info,
+.contact-form {
+    flex: 1;
+    padding: 20px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.contact-info {
+    text-align: left;
+    margin-right: 20px;
+}
+
+.contact-info h3,
+.contact-form h3 {
+    font-size: 1.8em;
+    margin-bottom: 25px;
+    text-align: left;
+    color: var(--highlight-color); /* Titres de section contact en couleur d'accentuation */
+}
+
+.contact-info p {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    color: var(--text-light); /* Utilise la variable du thème */
+}
+
+.contact-info i {
+    margin-right: 12px;
+    font-size: 1.2em;
+    color: var(--highlight-color); /* Icônes en couleur d'accentuation */
+}
+
+.contact-info a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+    color: var(--text-light); /* Liens en couleur de texte clair */
+}
+
+.contact-info a:hover {
+    color: var(--highlight-color); /* Utilise la variable du thème */
+}
+
+.social-icons {
+    margin-top: 25px;
+    display: flex;
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+.social-icons a {
+    font-size: 2em;
+    transition: color 0.3s ease, transform 0.2s ease;
+    color: var(--text-light); /* Icônes sociales par défaut en couleur de texte clair */
+}
+
+.social-icons a:hover {
+    transform: translateY(-3px);
+}
+
+/* Couleurs spécifiques pour les icônes sociales au survol */
+.social-icons .fa-linkedin:hover { color: #0077B5; }
+.social-icons .fa-github:hover { color: #6e5494; } /* GitHub a une couleur aubergine */
+.social-icons .fa-twitter:hover { color: #1DA1F2; }
+.social-icons .fa-whatsapp:hover { color: #25D366; }
+
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-muted); /* Utilise la variable du thème */
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-color); /* Utilise la variable du thème */
+    background-color: var(--input-bg); /* Utilise la variable du thème */
+    color: var(--text-color); /* Utilise la variable du thème */
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--highlight-color); /* Utilise la variable du thème */
+    box-shadow: 0 0 8px var(--input-focus-shadow); /* Utilise la variable du thème */
+    outline: none;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-btn {
+    width: auto;
+    margin-top: 20px;
+}
+
+/* --- 9. Bouton flottant WhatsApp --- */
+.floating-contact-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #25d366; /* Couleur spécifique WhatsApp */
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 50px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1001;
+    font-weight: 600;
+}
+
+.floating-contact-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.floating-contact-btn .whatsapp-icon {
+    width: 28px;
+    height: 28px;
+    margin-right: 10px;
+}
+
+/* --- 10. Animations CSS (Menu Burger) --- */
+@keyframes navLinkFade {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* --- 11. Responsive Design (Media Queries) --- */
+@media screen and (max-width: 768px) {
+    .nav-links {
+        position: absolute;
+        right: 0;
+        top: 70px;
+        height: calc(100vh - 70px);
+        background-color: var(--navbar-bg); /* S'adapte au mode */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 75%;
+        transform: translateX(100%);
+        transition: transform 0.5s ease-in;
+        padding-top: 60px;
+        z-index: 999;
+    }
+
+    .nav-links li {
+        opacity: 0;
+        margin: 30px 0;
+    }
+
+    .nav-links a {
+        font-size: 1.3em;
+    }
+
+    .burger {
+        display: block;
+    }
+
+    .nav-active {
+        transform: translateX(0%);
+    }
+
+    .toggle .line1 {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    .toggle .line2 {
+        opacity: 0;
+    }
+    .toggle .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    /* Sections */
+    section {
+        padding: 80px 5%;
+        min-height: auto;
+    }
+
+    .page-title {
+        font-size: 2.5em;
+        margin-bottom: 30px;
+    }
+
+    /* Hero Section - Mobile */
+    .hero-section {
+        padding-top: 100px;
+    }
+    .hero-row {
+        flex-direction: column;
+        text-align: center;
+        width: 90%;
+    }
+    .hero-content {
+        max-width: 100%;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .hero-image {
+        max-width: 70%;
+        margin: 0 auto;
+    }
+    .hero-content h1 {
+        font-size: 3em;
+    }
+    .hero-content h2 {
+        font-size: 2.2em;
+    }
+    .hero-content .subtitle {
+        font-size: 1.5em;
+    }
+    .btn {
+        padding: 12px 25px;
+        font-size: 1em;
+        margin-top: 30px;
+    }
+
+    /* Philosophy Section - Mobile */
+    .philosophy-section {
+        padding: 60px 5%;
+    }
+    .philosophy-content-wrapper {
+        flex-direction: column;
+        gap: 30px;
+        width: 100%;
+    }
+    .philosophy-text {
+        max-width: 100%;
+        text-align: center;
+    }
+    .philosophy-text p {
+        font-size: 1em;
+    }
+    .philosophy-images-container {
+        margin-top: 20px;
+        max-width: 60%;
+        height: 200px; /* Ajuster la hauteur pour mobile */
+        width: 200px;
+    }
+
+    /* Competences Section - Mobile */
+    .skills-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        width: 90%;
+    }
+    .skill-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    .skill-name {
+        flex: none;
+        width: 100%;
+        text-align: left;
+        margin-bottom: 5px;
+    }
+    .skill-bar-bg {
+        width: 100%;
+    }
+    .skill-percentage {
+        position: static;
+        transform: none;
+        margin-left: 10px;
+        color: var(--text-color); /* S'adapte au mode */
+    }
+
+
+    /* Realisations Section - Mobile */
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        width: 90%;
+    }
+
+    /* Contact Section - Mobile */
+    .contact-container {
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+        padding: 20px;
+    }
+    .contact-info,
+    .contact-form {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .contact-info h3,
+    .contact-form h3 {
+        text-align: center;
+    }
+    .contact-info p {
+        justify-content: center;
+    }
+    .social-icons {
+        justify-content: center;
+    }
+
+    /* Ajustement du positionnement du bouton de thème pour mobile */
+    .theme-switch-wrapper {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        margin-left: 0;
+        z-index: 1001; /* Au-dessus des liens de nav repliés */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* Navbar */
+    .navbar {
+        padding: 15px 5%;
+    }
+    .navbar .logo img {
+        height: 40px;
+    }
+    /* Sections */
+    section {
+        padding: 60px 5%;
+    }
+    .page-title {
+        font-size: 2em;
+    }
+
+    /* Hero Section - Smallest Mobile */
+    .hero-section {
+        padding-top: 80px;
+    }
+    .hero-content h1 {
+        font-size: 2.5em;
+    }
+    .hero-content h2 {
+        font-size: 1.8em;
+    }
+    .hero-content .subtitle {
+        font-size: 1.2em;
+    }
+    .hero-image {
+        max-width: 90%;
+    }
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+    /* Philosophy Section - Smallest Mobile */
+    .philosophy-section {
+        padding: 40px 5%;
+    }
+    .philosophy-text p {
+        font-size: 0.9em;
+    }
+    .philosophy-images-container {
+        max-width: 80%;
+        height: 150px;
+        width: 150px;
+    }
+    /* Competences Section - Smallest Mobile */
+    .skill-category {
+        padding: 20px;
+    }
+    .skill-name {
+        font-size: 0.9em;
+    }
+    .skill-percentage {
+        font-size: 0.7em;
+    }
+    /* Realisations Section - Smallest Mobile */
+    .project {
+        padding: 15px;
+    }
+    .project img {
+        margin-bottom: 10px;
+    }
+    .project h3 {
+        font-size: 1.1em;
+    }
+    .project p {
+        font-size: 0.9em;
+    }
+    .project-link {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+    /* Contact Section - Smallest Mobile */
+    .contact-container {
+        padding: 15px;
+    }
+    .contact-info,
+    .contact-form {
+        padding: 15px;
+    }
+    .form-group label,
+    .form-group input,
+    .form-group textarea {
+        font-size: 0.9em;
+    }
+    .contact-btn {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+    /* Floating Contact Button */
+    .floating-contact-btn {
+        bottom: 15px;
+        right: 15px;
+        padding: 8px 12px;
+        font-size: 0.9em;
+    }
+    .floating-contact-btn .whatsapp-icon {
+        width: 20px;
+        height: 20px;
+    }
+    .social-icons a {
+        font-size: 1.5em;
+    }
+
+    .theme-switch-wrapper {
+        top: 15px;
+        right: 15px;
+    }
+    .theme-switch {
+        width: 50px;
+        height: 28px;
+    }
+    .slider:before {
+        height: 20px;
+        width: 20px;
+        left: 4px;
+        bottom: 4px;
+    }
+    input:checked + .slider:before {
+        transform: translateX(20px);
+    }
+}

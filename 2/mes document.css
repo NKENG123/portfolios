@@ -1,0 +1,118 @@
+body{
+    font-family:    Arial, sans-serif;
+    margin: 0;
+    padding: 0px;
+    background-image: linear-gradient(rgba(10,8,8,0.671), rgba(7,6,6,0.675)),url(0abdabf1dbabb91f90cb732dbd4ec295.jpg);
+    text-align: center;
+    color: white;
+    padding-bottom: 80px;
+    background:#f2f2f2 ;
+}
+.logo-text {
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    background-color: #007BFF;
+    padding: 8px 14px;
+    border-radius: 2000px;
+    font-family: Arial, sans-serif;
+}
+.nation a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+.nation a:hover {
+    background-color: #007BFF;
+}
+
+header{
+    background: #333;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+}
+h1{
+    font-size: 36px;
+    margin: 0;
+    text-transform: capitalize;
+}
+h2{
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+
+}
+nav {
+    background: #444;
+    padding: 10px;
+    text-align: center;
+    text-transform: capitalize;
+}
+nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+}
+a.btn {
+    background: #28a745;
+    color: white;
+    padding: 6px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+}
+button{
+    background: #28a745;
+    color: white;
+    padding: 6px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+    text-transform: capitalize;
+}
+   
+    
+
+nav :hover{
+    box-shadow: 0 0 10px 5px rgba(52, 186, 219, 0.466);
+}
+
+footer{
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 40px;
+}
+.inscrire .connecter{
+    margin: 100px;
+}
+ table{
+    width: 100%;
+    border:solid;
+    margin-top: 30px;
+}
+th, td{
+    border: 1px;
+    padding: 15px;
+    text-align: left;
+    color: white;
+    background-color: blue;
+    box-shadow: blue;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: blue;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+td:hover{
+    background-color: rgba(52, 186, 219, 0.466);
+    color: black;
+}

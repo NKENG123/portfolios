@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="dark-mode"> <nav class="navbar">
+        <div class="logo">
+            <a href="#accueil"><img src="images/Gemini_Generated_Image_fqorf0fqorf0fqor.png" alt="Logo"></a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#accueil" class="active">Accueil</a></li>
+            <li><a href="#ma-philosophie">Ma Philosophie</a></li>
+            <li><a href="#competences">Compétences</a></li>
+            <li><a href="#realisations">Réalisations</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" checked /> <div class="slider round"></div>
+            </label>
+        </div>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <section id="accueil" class="hero-section">
+        <div class="hero-background"></div> <div class="hero-row">
+            <div class="hero-content anim-element" data-delay="0.2">
+                <h1>Salut! je suis <span class="highlight">NKENG DIMITRI SAVIO</span></h1>
+                <h2>Développeur <span class="highlight">Web Fullstack</span></h2>
+                <p class="subtitle line1-subtitle">Passionné par la création d'expériences numériques.</p>
+                <p class="subtitle">De l'idée à la réalité, je construis des solutions web robustes et intuitives.</p>
+                <a href="#realisations" class="btn smooth-scroll">Voir mes réalisations</a>
+            </div>
+            <div class="hero-image anim-element" data-delay="0.5">
+                <img src="images/moi.jpeg" alt="Votre photo de profil">
+            </div>
+        </div>
+    </section>
+
+    <section id="ma-philosophie" class="philosophy-section">
+        <h2 class="page-title anim-element">Ma Philosophie</h2>
+        <div class="philosophy-content-wrapper">
+            <div class="philosophy-text anim-element" data-delay="0.2">
+                <p>
+                    Ma démarche est de transformer les idées en réalité numérique. Je m'engage à créer des expériences web intuitives et efficaces, en plaçant toujours l'utilisateur au centre du design.
+                </p>
+                <p>
+                    Je suis animé par l'apprentissage continu et l'innovation. Chaque projet est une opportunité d'explorer de nouvelles solutions et d'intégrer les dernières technologies.
+                </p>
+                <p>
+                    La collaboration transparente est essentielle. Travailler en équipe, échanger et communiquer clairement sont mes piliers pour bâtir des solutions robustes et pérennes. Mon objectif : livrer des projets qui dépassent les attentes.
+                </p>
+            </div>
+            <div class="philosophy-images-container anim-element" data-delay="0.4">
+                <img src="images/Capture.PNG" alt="Icône Philosophie 1" class="philosophy-active-image">
+                <img src="images/Capturea.PNG" alt="Icône Philosophie 2" class="philosophy-image-hidden">
+                <img src="images/o.PNG" alt="Icône Philosophie 3" class="philosophy-image-hidden">
+                </div>
+        </div>
+    </section>
+
+    <section id="competences" class="competences-section">
+        <h2 class="page-title anim-element">Mes Compétences</h2>
+        <div class="skills-container">
+            <div class="skill-category anim-element" data-delay="0.2">
+                <h3>Développement Front-end</h3>
+                <div class="skill-bar-wrapper">
+                    <div class="skill-item">
+                        <span class="skill-name">HTML</span>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar" data-level="90"></div>
+                            <span class="skill-percentage">90%</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">CSS</span>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar" data-level="85"></div>
+                            <span class="skill-percentage">85%</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">JavaScript</span>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar" data-level="45"></div>
+                            <span class="skill-percentage">45%</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">React Nativ</span>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar" data-level="35"></div>
+                            <span class="skill-percentage">35%</span>
+                        </div>
+                    </div>
+               
+                </div>
+            </div>
+
+            <div class="skill-category anim-element" data-delay="0.4">
+                <h3>Développement Back-end</h3>
+                <div class="skill-bar-wrapper">
+                
+                  
+                    <div class="skill-item">
+                        <span class="skill-name">Java</span>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar" data-level="35"></div>
+                            <span class="skill-percentage">35%</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">PHP</span>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar" data-level="70"></div>
+                            <span class="skill-percentage">70%</span>
+                        </div>
+                    </div>
+                 
+                </div>
+            </div>
+
+            <div class="skill-category anim-element" data-delay="0.6">
+                <h3>Bases de Données</h3>
+                <div class="skill-bar-wrapper">
+                    <div class="skill-item">
+                        <span class="skill-name">MySQL</span>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar" data-level="75"></div>
+                            <span class="skill-percentage">75%</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">PostgreSQL</span>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar" data-level="70"></div>
+                            <span class="skill-percentage">70%</span>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+
+            <div class="skill-category anim-element" data-delay="0.8">
+                <h3>Autres Compétences</h3>
+                <div class="skill-bar-wrapper">
+                    <div class="skill-item">
+                        <span class="skill-name">Git</span>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar" data-level="60"></div>
+                            <span class="skill-percentage">60%</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">Docker</span>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar" data-level="30"></div>
+                            <span class="skill-percentage">30%</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">Méthodes Agiles</span>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar" data-level="70"></div>
+                            <span class="skill-percentage">70%</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">Communication</span>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar" data-level="75"></div>
+                            <span class="skill-percentage">75%</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">Anglais</span>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar" data-level="85"></div>
+                            <span class="skill-percentage">85%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="realisations" class="realisations-section">
+        <h2 class="page-title anim-element">Mes Réalisations</h2>
+        <div class="projects-grid">
+            <div class="project anim-element" data-delay="0.2">
+                <img src="images/cle.PNG" alt="Projet 1" href="1/in.html">
+                <h3> L'Oasis Bleue - Site Hôtelier Responsive</h3>
+                <p>Ce projet est un site web mono-page responsive pour un hôtel fictif, "L'Oasis Bleue". Il présente un thème océanique, une navigation fluide, et des transitions d'images dynamiques. Développé en HTML5, CSS3 et JavaScript, il met en avant mes compétences en UI/UX et en design adaptatif.</p>
+                <a href="1/in.html" class="project-link">Voir le projet</a>
+            </div>
+            <div class="project anim-element" data-delay="0.4">
+                <img src="images/ged.PNG" alt="Projet 2">
+                <h3>Système de Gestion Électronique de Documents (GED)</h3>
+                <p>J'ai développé un GED web en PHP/MySQL et HTML/CSS/JS pour la gestion sécurisée et efficace de documents. L'application propose une interface utilisateur intuitive avec un thème gris luxueux et compact.</p>
+                <a href="2/connexion.php" class="project-link">Voir le projet</a>
+            </div>
+            <div class="project anim-element" data-delay="0.6">
+                <img src="images/alo.PNG" alt="Projet 3" href="3/calco.xml">
+                <h3>Mis en forme calculatrice</h3>
+                <p>Ce projet illustre l'utilisation de XML (eXtensible Markup Language) non pas pour construire une calculatrice fonctionnelle en soi, mais pour en modéliser la structure des données. Le fichier XML agit comme un plan sémantique qui décrit les composants clés d'une opération de calcul ou la configuration d'une calculatrice.</p>
+                <a href="3/calco.xml" class="project-link">Voir le projet</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <h2 class="page-title anim-element">Contactez-moi</h2>
+        <div class="contact-container">
+            <div class="contact-info anim-element" data-delay="0.2">
+                <h3>Informations de Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Bafoussam, Cameroun</p>
+                <p><i class="fas fa-phone"></i> <a href="tel:+237 686 953 170">+237 686 953 170</a></p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:dimitrisavionkeng@gmail.com">dimitrisavionkeng@gmail.com</a></p>
+                <div class="social-icons">
+                    <a href="https://linkedin.com/in/votreprofil" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/votregithub" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://twitter.com/votre_twitter" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://wa.me/686953170" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="contact-form anim-element" data-delay="0.4">
+                <h3>Envoyez-moi un message</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="name">Nom :</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email :</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message :</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn contact-btn">Envoyer le message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/686953170" class="floating-contact-btn" target="_blank">
+        <img src="images/wh.PNG" alt="WhatsApp Icon" class="whatsapp-icon">
+        Contactez-moi sur WhatsApp
+    </a>
+
+    <script src="script.js"></script>
+</body>
+</html>
